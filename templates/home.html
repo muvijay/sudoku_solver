@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Sudoku Solver</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <style>
+        br {
+            display: block;
+            content: "";
+            margin-top: 5px;
+        }
+        
+        .divfixed
+        {
+            width:500px;
+            max-width:500px;
+        }
+
+        .divcenter{
+            padding: 15px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+        }
+
+        .alert1{position:relative;padding:0rem 0rem;margin-bottom:0rem;border:1px solid;border-radius:1rem;text-align:center;}
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100" style="background-color:rgb(227, 227, 227);">
+
+    <header>
+        <nav class="navbar justify-content-center navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Sudoku Solver</a>
+        </nav>
+    </header>
+
+    <br><br><br>
+    <main role="main">
+        <form role="form" method="POST" onclick="location.href={% url 'home' %}">{% csrf_token %}
+            <div class="divcenter">
+                {% for k, val in dict_val.items %}
+                    <div class="divfixed">
+                        <div class="input-group shadow-lg">
+                            {% for item in val %}
+                                <input type="text" name="box[]" class="form-control bg-light text-dark text-center fs-4" value="{{item}}">
+                                {% if forloop.counter == 3 or forloop.counter == 6 %}&nbsp;{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if k == 3 or k == 6 %}<br>{% endif %}
+                {% endfor %}
+                <br>
+                <div class="container text-center divcenter1">
+                    <input type="submit" value="Solve Puzzle" name="solve" class="btn btn-secondary btn-lg" onclick="location.href={% url 'home' %}">
+                    <input type="submit" value="Reset" name="reset" class="btn btn-secondary btn-lg" onclick="location.href={% url 'home' %}">
+                </div>
+                <br>
+                {% if msg == 'enter' %}
+                <div class="alert1 alert-success" role="alert">
+                    Enter the values to solve the puzzle..!
+                </div>
+                {% elif msg == 'error' %}
+                <div class="alert1 alert-danger" role="alert">
+                    Empty puzzle can't be solved..!
+                </div>
+                {% elif msg == 'done' %}
+                <div class="alert1 alert-success" role="alert">
+                    Puzzle is solved...!
+                </div>
+
+                {% endif %}
+            </div>
+        </form>
+        <br>
+    </main>
+    
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container text-center">
+            <span class="text-muted">
+                &copy; Test Project {% now "Y" %}
+            </span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
+    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>
