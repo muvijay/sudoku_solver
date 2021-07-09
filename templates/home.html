@@ -54,7 +54,7 @@
 
     <br><br><br>
     <main role="main">
-        <form role="form" method="POST" onclick="location.href={% url 'home' %}">{% csrf_token %}
+        <form role="form" method="POST" onclick={% url 'home' %}>{% csrf_token %}
             <div class="divcenter">
                 {% for k, val in dict_val.items %}
                     <div class="divfixed">
@@ -70,7 +70,7 @@
                 <br>
                 <div class="container text-center divcenter1 pb-2 pt-2">
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-success btn-lg" onclick="location.href={% url 'home' %}">Solve Puzzle</button>
+                    <button type="submit" class="btn btn-success btn-lg" onclick={% url 'home' %}>Solve Puzzle</button>
                     <button type="button" class="btn btn-danger btn-lg" onclick="location.href={% url 'reset' %}">Reset</button>
                     <button type="button" class="btn btn-warning btn-lg" onclick="location.href={% url 'sample' %}">Sample</button>
                 </div></div>
