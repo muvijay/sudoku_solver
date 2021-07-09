@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from random import randint
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 dict_val = {}
 dict_val = {1:4, 2:0, 3:4, 4:6, 5:1, 6:9, 7:4, 8:0, 9:4}
@@ -170,10 +170,10 @@ def resolve(dic):
 
 def home(request):
     if request.method == 'GET':
-        return render(request, 'home.html', {'dict_val': row_dict, 'msg': 'enter'})
+        return render(request, 'home.html', {'dict_val': count, 'msg': 'enter'})
     elif request.method == 'POST':
         if request.POST.get('reset') == 'Reset':
-            return render(request, 'home.html', {'dict_val': count, 'msg': 'enter'})
+            return redirect(reverse('home'), {'dict_val': count, 'msg': 'enter'})
         else:
             box_values = request.POST.getlist('box[]')
             flag_data_found = False
@@ -205,5 +205,14 @@ def home(request):
             else:
                 return render(request, 'home.html', {'dict_val': count, 'msg': 'error'})
 
+def sample(request):
+    if request.method == 'GET':
+        return render(request, 'home.html', {'dict_val': row_dict, 'msg': 'sample'})
+    elif request.method == 'POST':
+        return home(request)
 
-
+def reset(request):
+    if request.method == 'GET':
+        return render(request, 'home.html', {'dict_val': count, 'msg': 'enter'})
+    elif request.method == 'POST':
+        return home(request)
